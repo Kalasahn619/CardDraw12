@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CardDraw12 – Random Luck</title>
+    <title>CardDraw11 – Random Luck</title>
     <meta name="description" content="A mystical lottery experience blending cryptographic randomness, numerology, and tarot symbolism">
     <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiQ2FyZHJhdzExIC0gUmFuZG9tIEx1Y2siLCJzaG9ydF9uYW1lIjoiQ2FyZHJhdzExIiwic3RhcnRfdXJsIjoiLiIsImRpc3BsYXkiOiJzdGFuZGFsb25lIiwidGhlbWVfY29sb3IiOiIjOGI1Y2Y2IiwiYmFja2dyb3VuZF9jb2xvciI6IiMxZjI5MzcifQ==">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -2422,24 +2422,16 @@
             e.target.value = '';
         }
 
-        // PWA setup
-        function setupPWA() {
+               // PWA setup
+               function setupPWA() {
             if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('data:text/javascript;base64,' + btoa(`
-                    self.addEventListener('install', event => {
-                        self.skipWaiting();
+                navigator.serviceWorker.register('./sw.js')
+                    .then(() => {
+                        console.log('Service worker registered successfully.');
+                    })
+                    .catch(error => {
+                        console.log('Service worker registration failed:', error);
                     });
-                    
-                    self.addEventListener('activate', event => {
-                        event.waitUntil(self.clients.claim());
-                    });
-                    
-                    self.addEventListener('fetch', event => {
-                        event.respondWith(fetch(event.request));
-                    });
-                `)).catch(error => {
-                    console.log('Service worker registration failed:', error);
-                });
             }
         }
 
@@ -2447,5 +2439,4 @@
         document.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
-
 </html>
